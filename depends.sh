@@ -1,4 +1,3 @@
-#Test
 BITRADIO_ROOT=$(pwd)
 
 # Pick some path to install BDB to, here we create a directory within the BitRadio directory

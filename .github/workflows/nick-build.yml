@@ -5,10 +5,26 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     
     steps:
-    - uses: actions/checkout@v1
+    - name: npm install, build and test
+      run: |
+            sudo add-apt-repository -y ppa:bitcoin/bitcoin
+            sudo apt-get update
+            sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
+            sudo apt install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git -y
+            sudo apt install nsis
+            sudo apt install g++-mingw-w64-x86-64
+            
+    - uses: actions/checkout@v1   
+    - name: depends
+      working-directory: ./depends
+      run: make HOST=x86_64-w64-mingw32
+    - name: autogen.sh
+      run: ./autogen.sh
+    - name: CONFIG_SITE
+      run: CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
     - name: configure
       run: ./configure
     - name: make

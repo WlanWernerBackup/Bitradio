@@ -1,3 +1,0 @@
-files:
-  - source: /src/qt/locale/bitradio_en.ts
-    translation: /src/qt/locale/bitradio_%two_letters_code%.ts

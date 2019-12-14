@@ -5,10 +5,12 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-16.04
     
     steps:
     - uses: actions/checkout@v1
+    - name: Install deps
+      run: ./install.sh
     - name: autogen.sh
       run: ./autogen.sh
     - name: configure

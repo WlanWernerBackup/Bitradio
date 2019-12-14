@@ -1,4 +1,4 @@
-name: C/C++ CI
+name: Roalkege-Build
 on: [push]
 
 jobs:

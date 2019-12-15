@@ -1,4 +1,4 @@
-name: WlanWerners One For Linux
+name: Linux (QT,CLI)
 
 on: [push]
 

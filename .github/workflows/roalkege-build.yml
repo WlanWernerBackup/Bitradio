@@ -4,7 +4,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: [ubuntu-16.04, ubuntu-18.04]
     
     steps:
     - name: npm install, build and test
@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v1   
     - name: depends
       working-directory: ./depends
-      run: make download-win
+      run: make download-win -j 2
     - name: autogen.sh
       run: ./autogen.sh
     - name: CONFIG_SITE
@@ -30,11 +30,16 @@ jobs:
     - name: configure
       run: ./configure
     - name: make
-      run: make
+      run: make -j 2
+    - name: make install
+      run: make install DESTDIR=/home/runner/work/Bitradio/Bitradio/installer -j 2
     - name: make deploy
-      run: make deploy
-
-    - name: Download artifact
-      uses: actions/download-artifact@v1.0.0
+      run: make deploy -j 2
+  
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
       with:
+    # Artifact name
         name: test
+    # Directory containing files to upload
+        path: /home/runner/work/Bitradio/Bitradio/installer

@@ -5,7 +5,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
     
     steps:
     - name: install deps
@@ -15,8 +15,8 @@ jobs:
             sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
             sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config -y
             sudo apt-get install libssl1.0-dev -y
-            sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev -y
-            sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev -y 
+            sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler -y
+            sudo apt-get install libboost-all-dev -y
             
             
     - uses: actions/checkout@v1   
@@ -25,10 +25,11 @@ jobs:
     - name: configure
       run: ./configure
     - name: make
-      run: make
-          
-    - name: CLI
-      uses: actions/upload-artifact@v1
+      run: make -j 2          
+    - name: make install
+      run: make install DESTDIR=/home/runner/work/Bitradio/Bitradio/installer -j 2  
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
       with:
-          name: bitradio-cli
-          path: src/
+        name: Wallet
+        path: /home/runner/work/Bitradio/Bitradio/installer

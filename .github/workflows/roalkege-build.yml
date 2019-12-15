@@ -16,6 +16,7 @@ jobs:
             sudo apt install g++-mingw-w64-x86-64 -y
             sudo update-alternatives --config x86_64-w64-mingw32-g++
             sudo apt install nsis -y
+            sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev -y
             
     - uses: actions/checkout@v1   
     - name: depends
@@ -29,3 +30,5 @@ jobs:
       run: ./configure
     - name: make
       run: make
+    - name: make deploy
+      run: make deploy

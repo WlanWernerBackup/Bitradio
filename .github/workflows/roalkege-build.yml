@@ -4,7 +4,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     
     steps:
     - name: npm install, build and test
@@ -13,8 +13,9 @@ jobs:
             sudo apt-get update
             sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
             sudo apt install build-essential libtool autotools-dev automake pkg-config bsdmainutils curl git -y
-            sudo apt install nsis
-            sudo apt install g++-mingw-w64-x86-64
+            sudo apt install g++-mingw-w64-x86-64 -y
+            sudo update-alternatives --config x86_64-w64-mingw32-g++ -y
+            sudo apt install nsis -y
             
     - uses: actions/checkout@v1   
     - name: depends

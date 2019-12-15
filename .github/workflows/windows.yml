@@ -28,10 +28,9 @@ jobs:
       run: make HOST=x86_64-w64-mingw32 -j2
     - name: autogen.sh
       run: ./autogen.sh
-    - name: CONFIG_SITE
-      run: CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/
     - name: configure
-      run: ./configure
+      run: CONFIG_SITE=$PWD/depends/x86_64-w64-mingw32/share/config.site ./configure --prefix=/ 
+          ./configure
     - name: make
       run: make -j 2
     - name: make install

@@ -4,7 +4,7 @@ on: [push]
 jobs:
   build:
 
-    runs-on: [ubuntu-16.04, ubuntu-18.04]
+    runs-on: ubuntu-18.04
     
     steps:
     - name: npm install, build and test
@@ -39,7 +39,5 @@ jobs:
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
-    # Artifact name
         name: test
-    # Directory containing files to upload
         path: /home/runner/work/Bitradio/Bitradio/installer

@@ -1,0 +1,34 @@
+name: WlanWerners One For Linux
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+    
+    steps:
+    - name: install deps
+      run: |
+            sudo add-apt-repository -y ppa:bitcoin/bitcoin
+            sudo apt-get update
+            sudo apt-get install libdb4.8-dev libdb4.8++-dev -y
+            sudo apt-get install build-essential libtool autotools-dev autoconf pkg-config -y
+            sudo apt-get install libssl1.0-dev -y
+            sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev -y
+            sudo apt-get install libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-program-options-dev libboost-test-dev libboost-thread-dev -y 
+            
+            
+    - uses: actions/checkout@v1   
+    - name: autogen.sh
+      run: ./autogen.sh
+    - name: configure
+      run: ./configure
+    - name: make
+      run: make
+          
+    - name: CLI
+      uses: actions/upload-artifact@v1
+      with:
+          name: bitradio-cli
+          path: /home/runner/work/Bitradio/src/

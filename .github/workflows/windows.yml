@@ -22,7 +22,7 @@ jobs:
     - uses: actions/checkout@v1   
     - name: depends
       working-directory: ./depends
-      run: make download-win -j 2
+      run: make HOST=x86_64-w64-mingw32 -j2
     - name: autogen.sh
       run: ./autogen.sh
     - name: CONFIG_SITE
